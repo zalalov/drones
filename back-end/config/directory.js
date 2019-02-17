@@ -8,5 +8,7 @@ const directory = {
     assetsDir: backendPath + '/public'
 };
 
+console.log(directory);
+
 export default directory;
 
