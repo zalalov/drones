@@ -3,6 +3,7 @@ import app from './config/express';
 import routes from './routes/index.route';
 import * as errorHandler from './middlewares/errorHandler';
 import joiErrorHandler from './middlewares/joiErrorHandler';
+import * as WebSocket from 'ws';
 
 // Router
 app.use('/api', routes);
@@ -19,8 +20,23 @@ app.use(joiErrorHandler);
 app.use(errorHandler.notFoundErrorHandler);
 app.use(errorHandler.errorHandler);
 
-app.listen(app.get('port'), app.get('host'), () => {
+let server = app.listen(app.get('port'), app.get('host'), () => {
     console.log(`Server running at http://${app.get('host')}:${app.get('port')}`);
+});
+
+const wss = new WebSocket.Server({ server });
+
+wss.on('connection', (ws) => {
+  //connection is up, let's add a simple simple event
+  ws.on('message', (message) => {
+
+    //log the received message and send it back to the client
+    console.log('received: %s', message);
+    ws.send(`Hello, you sent -> ${message}`);
+  });
+
+  //send immediatly a feedback to the incoming connection
+  ws.send('Hi there, I am a WebSocket server');
 });
 
 export default app;
