@@ -1,0 +1,32 @@
+{
+  "name": "front-end",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@babel/plugin-proposal-function-bind": "^7.2.0",
+    "babel-loader": "^8.0.5",
+    "cross-env": "^5.2.0",
+    "css-loader": "^2.1.0",
+    "react": "^16.8.2",
+    "react-dom": "^16.8.2",
+    "react-hot-loader": "^4.6.5",
+    "react-scripts": "2.1.5",
+    "svg-react-loader": "^0.4.6"
+  },
+  "scripts": {
+    "webpack:dev": "cross-env NODE_ENV=development webpack --config ./webpack/webpack.config.dev.js",
+    "webpack:prod": "cross-env NODE_ENV=production webpack --config ./webpack/webpack.config.prod.js"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "webpack-cli": "^3.2.3"
+  }
+}
