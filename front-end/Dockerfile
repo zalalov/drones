@@ -8,6 +8,3 @@ ADD ./front-end /front-end
 
 RUN npm install
 RUN npm install webpack webpack-cli
-RUN npm run webpack:prod
-
-VOLUME "/dist"
