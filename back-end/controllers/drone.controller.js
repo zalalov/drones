@@ -40,10 +40,3 @@ export function store(x, y, quadrant) {
 export function destroy(id) {
     return droneStore.remove(id);
 }
-
-/**
- * Get list of quadrants
- */
-export function quadrants() {
-    return droneStore.quadrants();
-}

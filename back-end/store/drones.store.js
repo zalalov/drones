@@ -33,14 +33,6 @@ class DroneStore {
 
         return len !== this._data.length;
     }
-
-    getByQuadrant(id) {
-        return this._data.filter(item => item.quadrant === id);
-    }
-
-    quadrants() {
-        return [...(new Set(this._data.map(item => item.quadrant)))];
-    }
 }
 
 export default DroneStore;
