@@ -8,7 +8,21 @@ services:
       dockerfile: ./front-end/Dockerfile
     volumes:
       - './dist:/dist'
-    command: 'npm run webpack:prod'
+    networks:
+      - app
+
+  back-end:
+    container_name: back-end
+    build:
+      context: .
+      dockerfile: ./back-end/Dockerfile
+    env_file:
+      - back-end/.env
+    volumes:
+      - './dist:/dist'
+    ports:
+      - '3000:3000'
+    restart: unless-stopped
     networks:
       - app
 

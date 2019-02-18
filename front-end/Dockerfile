@@ -8,3 +8,5 @@ ADD ./front-end /front-end
 
 RUN npm install
 RUN npm install webpack webpack-cli
+
+CMD npm run webpack:prod
