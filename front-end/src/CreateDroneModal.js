@@ -53,7 +53,7 @@ class CreateDroneModal extends Component {
   render() {
     return (
       <Modal show={this.props.show} onHide={this.props.toggle}>
-        <Form onSubmit={this.submit}>
+        <Form onSubmit={(e) => {this.submit(e); return false;}}>
           <Modal.Header closeButton>
             <Modal.Title>Add Drone</Modal.Title>
           </Modal.Header>
