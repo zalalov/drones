@@ -6,7 +6,7 @@
   "scripts": {
     "start": "babel-node app.js",
     "start:dev": "nodemon --exec babel-node app.js",
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "mocha --exit --require @babel/register",
     "clean": "rimraf node_modules",
     "lint": "eslint .; exit 0"
   },
@@ -38,7 +38,9 @@
     "ws": "^6.1.4"
   },
   "devDependencies": {
-    "@babel/core": "^7.2.2",
-    "@babel/node": "^7.2.2"
+    "@babel/core": "^7.3.3",
+    "@babel/node": "^7.2.2",
+    "@babel/register": "^7.0.0",
+    "supertest": "^3.4.2"
   }
 }

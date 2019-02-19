@@ -3,7 +3,6 @@ import app from './config/express';
 import routes from './routes/index.route';
 import * as errorHandler from './middlewares/errorHandler';
 import joiErrorHandler from './middlewares/joiErrorHandler';
-import * as WebSocket from 'ws';
 import DroneWSServer from './ws/drone.ws.server';
 
 // Router
@@ -21,10 +20,21 @@ app.use(joiErrorHandler);
 app.use(errorHandler.notFoundErrorHandler);
 app.use(errorHandler.errorHandler);
 
-let server = app.listen(app.get('port'), app.get('host'), () => {
+let makeServer = () => {
+  return app.listen(app.get('port'), app.get('host'), () => {
     console.log(`Server running at http://${app.get('host')}:${app.get('port')}`);
-});
+  });
+};
 
-const wss = new DroneWSServer(server);
+let makeWss = (server) => {
+  return new DroneWSServer(server);
+};
+
+export let server = makeServer;
+export let wss = makeWss;
+
+if (!module.parent) {
+  makeServer();
+}
 
 export default app;

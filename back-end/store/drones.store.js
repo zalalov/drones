@@ -17,10 +17,11 @@ class DroneStore {
         let y = parseFloat(item.y);
         let quadrant = parseInt(item.quadrant);
         let id  = uuidv1();
+        let drone = {x, y, quadrant, id};
 
-        this._data.push({x, y, quadrant, id});
+        this._data.push(drone);
 
-        return item;
+        return drone;
     }
 
     get(id) {

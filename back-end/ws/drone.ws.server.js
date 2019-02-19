@@ -5,13 +5,15 @@ class DroneWSServer {
   constructor(server) {
     this.connectionHandler = this.connectionHandler.bind(this);
 
-    this.initWS(server);
+    return this.initWS(server);
   }
 
   initWS(server) {
     this._ws = new WebSocket.Server({server});
 
     this._ws.on('connection', this.connectionHandler);
+
+    return this._ws;
   }
 
   connectionHandler(ws) {

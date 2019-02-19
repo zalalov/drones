@@ -25,7 +25,7 @@ export function findById(id) {
  * @param quadrant
  */
 export function store(x, y, quadrant) {
-    return droneStore.add({
+    return  droneStore.add({
         x: x,
         y: y,
         quadrant: quadrant
