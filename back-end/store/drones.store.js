@@ -13,8 +13,12 @@ class DroneStore {
             return null;
         }
 
-        item['id'] = uuidv1();
-        this._data.push(item);
+        let x = parseFloat(item.x);
+        let y = parseFloat(item.y);
+        let quadrant = parseInt(item.quadrant);
+        let id  = uuidv1();
+
+        this._data.push({x, y, quadrant, id});
 
         return item;
     }
