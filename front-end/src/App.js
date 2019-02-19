@@ -1,9 +1,10 @@
 import React, {Component} from 'react';
 import './css/App.css';
-import {API_WS_URL} from "./config";
+import {API_WS_URL, QUADRANT_SIZE} from "./config";
 import WebSocket from 'react-websocket';
-import {Button, Col, ListGroup, Modal, Navbar, Row, Tab, Table} from 'react-bootstrap';
+import {Button, Col, ListGroup, Modal, Form, Row, Tab, Table, Navbar} from 'react-bootstrap';
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
+import CreateDroneModal from './CreateDroneModal';
 
 
 class App extends Component {
@@ -20,7 +21,6 @@ class App extends Component {
     this.getDronesByQuadrant = this.getDronesByQuadrant.bind(this);
     this.renderQuadrantsList = this.renderQuadrantsList.bind(this);
     this.toggleCreateModal = this.toggleCreateModal.bind(this);
-    this.renderCreateModal = this.renderCreateModal.bind(this);
   }
 
   wsMessageHandler(message) {
@@ -33,6 +33,10 @@ class App extends Component {
     } catch (e) {
       console.error('Invalid drones data.');
     }
+  }
+
+  isDroneInQuadrant(drone) {
+    return drone.x <= QUADRANT_SIZE && drone.x >= 0 && drone.y <= QUADRANT_SIZE && drone.y >= 0;
   }
 
   getQuadrants() {
@@ -78,7 +82,7 @@ class App extends Component {
               </thead>
               <tbody>
               {this.getDronesByQuadrant(quadrant).map(drone =>
-                <tr key={`d_${drone.id}`}>
+                <tr key={`d_${drone.id}`} style={{backgroundColor: this.isDroneInQuadrant(drone) ? '#d4edda' : '#f8d7da'}}>
                   <td>{drone.id}</td>
                   <td>{drone.x}</td>
                   <td>{drone.y}</td>
@@ -94,27 +98,8 @@ class App extends Component {
 
   toggleCreateModal() {
     this.setState({
-      modal: !this.state.modal
+      createModal: !this.state.createModal
     });
-  }
-
-  renderCreateModal() {
-    return (
-      <Modal show={this.state.modal} onHide={this.toggleCreateModal}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
-        </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
-        <Modal.Footer>
-          <Button variant="secondary" onClick={this.toggleCreateModal}>
-            Close
-          </Button>
-          <Button variant="primary" onClick={this.toggleCreateModal}>
-            Save Changes
-          </Button>
-        </Modal.Footer>
-      </Modal>
-    )
   }
 
   render() {
@@ -145,7 +130,7 @@ class App extends Component {
           )}
         </main>
 
-        {this.renderCreateModal()}
+        <CreateDroneModal show={this.state.createModal} toggle={this.toggleCreateModal}/>
 
         <WebSocket url={API_WS_URL}
                    onMessage={this.wsMessageHandler}
